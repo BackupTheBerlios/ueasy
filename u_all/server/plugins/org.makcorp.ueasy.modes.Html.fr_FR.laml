@@ -80,7 +80,16 @@
 <tr key="fuschia" value="Rose"/>
 <tr key="gray" value="Gris"/>
 <tr key="green" value="Vert"/>
-
+<tr key="lime" value="Lime"/>
+<tr key="maroon" value="Marron"/>
+<tr key="navy" value="Marine"/>
+<tr key="olive" value="Olive"/>
+<tr key="purple" value="Violet"/>
+<tr key="red" value="Rouge"/>
+<tr key="silver" value="Argent"/>
+<tr key="teal" value="Teal"/>
+<tr key="white" value="Blanc"/>
+<tr key="yellow" value="Blanc"/>
 <!-- todo: continuer -->
 
 	</category>
