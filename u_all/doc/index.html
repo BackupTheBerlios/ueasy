@@ -1,0 +1,73 @@
+<html>
+<head><title>uEasy</title></head>
+<body>
+
+<table border=0 width="100%">
+<tr>
+<td width="200" align=right>
+<a href="uflow.html">uFlow Specification</a>
+<br><a href="dev.html">Developping</a>
+<br><a href="todo.html">The to-do list</a>
+<br><a href="http://developer.berlios.de/projects/ueasy/">berliOS page</a>
+<br><a href="mailto:nraoul@berlios.de">Contact</a>
+</td>
+<td valign=center>
+<h1>uEasy</h1>
+</td>
+</tr>
+</table>
+
+<hr>
+<b><center>What is uEasy</center></b>
+<hr>
+
+<p>The goal of this project is to allow unexperimented users to write informations to remote servers in a user-friendly way. One can use a wysiwyg editor and a FTP client. But most informations systems and websites are more complex than flat HTML files, they use Content Management Systems (CMS). "uEasy" provides a Java client and a Java server for use with any kind of CMS. It will be able to be used with various Content Management Systems thanks to a common protocol that has be defined and named <a href="uflow.html">uFlow</a>.
+
+<p>CMS are using XML, flat files, databases or various other systems to store documents. That's why a bit of programming is needed to connect uEasy to a CMS. Integrating uEasy in an new CMS requires to code a few functions defined by this uFlow protocol. This can be done using Java, PHP, Perl, C and probably most languages, using your CMS's programming language let you reuse code so it seems to be the better choice.
+<br><i><font color=silver> > Curently 1 CMS is supported, feel free to contribute !</font></i>
+
+<p>CMS usually doesn't use HTML to store data, but rather RDF, Wiki, Spip or home-brew formats to store information. Formats supporting in uEasy is based on plugins. Just copy a plugin in the plugins directory of the uEasy server and you can immediately use it (no need to restart the server).
+<br><i><font color=silver> > Curently there are 2 format plugins, feel free to contribute !</font></i>
+
+<hr>
+<b><center>How it works</center></b>
+<hr>
+
+<p>The CMS, the uEasy server and the uEasy client are communicating through the uFlow protocol. The user asks for a document, giving an authentication. The uEasy server transmits this request to the CMS. The CMS validates the authentication, and sends the document to the server. The server translate this document to HTML using a plugin, and sends to the client: 1) the HTML document 2) the allowed actions for this format(for example, the Wiki format won't allow to draw tables). The user can now edit the document in a wysiwyg way.
+
+<p>When finished, the user clicks on the "Save" dialog, the document is sent to the server, translated back to its original format using the plugin, and finally the CMS saves it.
+
+<hr>
+<b><center>Contributing</center></b>
+<hr>
+
+<p>uEasy is developped and commented in english. The uFlow protocol is a based on XML, it comes with a <a href="uflow.html">complete specification</a>. You can <a href="nraoul@berlios.de">contact me</a> if you need  some details. The projects contains different modules, which are really independants but all use the uFlow protocol. The programming languagy mostly is Object-Oriented-Programmation in Java, there is also a bit of PHP and others for some modules.
+
+<p><u>CMS support</u>: Support for phpWiki, Spip, CCMS, OpenCMS are needed.
+
+<p><u>Writing format plugins</u>: uEasy supports XHTML and Wiki.  CCMS, DocBook, RTF, RDF, Spip are needed. Writing a plugin usually means modifying a simple XML file and writing ~30 regexps.
+
+<p><u>Enhancing the Wysiwyg client</u>: The applet allows the user to open a document, edit it in a wysiwyg way, and save it back to the server. It supports casual text formatting, CSS1 styles, tables. It needs media (and particulary images) insertion.
+
+<p><u>Documentation</u>: The documentation needs your comments or improvements. 
+
+<p><u>Design</u>: the wysiwyg icons should be PNG files rather than GIF files.
+
+<hr>
+<b><center>Licence</center></b>
+<hr>
+
+<p>uEasy is licensed under the GNU-GPL which mean you can copy and modify it.
+
+<p>Third-party libraries:
+<ul>
+	<li>Wilson's MinML (GNU-GPL compatible)
+	<li>Apache's xml-rpc-1.2.jar (GNU-GPL compatible)
+	<li>Apache's log4j (GNU-GPL compatible)
+	<li>and Sun's usual libraries (awt,swing,io,lang,net,secure)
+</ul>
+
+<p align="right"><a href="http://developper.berlios.de"><img src="berliOS_logo.png" border="0"/></a></p>
+
+</body>
+</html>

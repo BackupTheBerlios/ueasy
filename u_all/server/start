@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export CLASSPATH=.:./plugins:./properties:../lib/xmlrpc-1.1.jar:../lib/log4j-1.2.7.jar:./ueasy-server.jar
+java org.makcorp.ueasy.umainserver.UMainServer &

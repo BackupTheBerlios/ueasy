@@ -1,0 +1,38 @@
+	<laml>
+
+	<!-- By now nothing is done for Spip, to do -->
+
+	<category name="menu">
+
+<tr key="file" value="Fichier"/>
+<tr key="edit" value="Edition"/>
+<tr key="insert" value="Insertion"/>
+<tr key="format" value="Format"/>
+<tr key="alignment" value="Alignement"/>
+<tr key="headings" value="Titres"/>
+<tr key="colors" value="Couleurs"/>
+<tr key="table" value="Tables"/>
+<tr key="form" value="Fomulaires"/>
+
+	</category>
+
+	<category name="label">
+
+<!-- uFlow -->
+<tr key="usave" value="Sauvegarder"/>
+<tr key="uopen" value="Ouvrir"/>
+<tr key="toggletoolbar" value="Basculer la barre d'outils"/>
+<tr key="viewsource" value="Basculer code/wysiwyg"/>
+<tr key="exit" value="Quitter"/>
+
+<!-- edition -->
+<tr key="undo" value="Annuler"/>
+<tr key="redo" value="Refaire"/>
+<tr key="cut" value="Couper"/>
+<tr key="copy" value="Copier"/>
+
+<!-- todo: continuer -->
+
+	</category>
+
+	</laml>

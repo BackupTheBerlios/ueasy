@@ -1,0 +1,7 @@
+uEasy server's files:
+
+- the format plugins are in the "plugins" directory
+- the properties files are in this directory
+- the log file is "ulog"
+- start and stop are for UNIX, they are really obvious and you can easily port them on another OS
+- on UNIX, the rights of "pass.tmp" should be "-rw-------" (chmod og-rwx pass.tmp)

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<actions>
+	<!-- uFlow -->
+	<action key="uopen" label="Ouvrir" menu="Fichier" button="1" icon="Open"/>
+	<action key="usave" label="Sauvegarder" menu="Fichier" button="1" icon="Save"/>
+	<action key="toggletoolbar" label="Basculer la barre d'outils" menu="Fichier"/>
+	<action key="exit" label="Quitter" menu="Fichier"/>
+	<!-- edition -->
+	<action key="undo" label="Annuler" menu="Edition" button="0"/>
+	<action key="redo" label="Refaire" menu="Edition" button="0"/>
+	<action key="cut" label="Couper" menu="Edition"/>
+	<action key="copy" label="Copier" menu="Edition"/>
+	<action key="paste" label="Coller" menu="Edition"/>
+	<action key="selectall" label="Sélectionner tout" menu="Edition"/>
+	<action key="selectparagraph" label="Sélectionnner le paragraphe" menu="Edition"/>
+	<action key="selectline" label="Sélectionner la ligne" menu="Edition"/>
+	<action key="selectword" label="Sélectionner le mot" menu="Edition"/>
+	<action key="find" label="Rechercher" menu="Edition" button="1" icon="Save"/>
+	<action key="findagain" label="Rechercher le suivant" menu="Edition" button="1" icon="FindAgain"/>
+	<action key="replace" label="Rechercher/Remplacer" menu="Edition" button="1" icon="Replace"/>
+	<!-- insertion -->
+	<action key="hrule" label="Regle horizontale" menu="Insertion" button="1" icon="Save"/>
+	<action key="insertanchor" label="Lien" menu="Insertion" button="0" icon="Save"/>
+	<action key="unorderedlist" label="Liste" menu="Insertion" button="1" icon="UList"/>
+	<action key="orderedlist" label="Liste numérotée" menu="Insertion" button="1" icon="UList"/>
+	<action key="insertparagraph" label="Paragraphe" menu="Insertion"/>
+	<action key="insertbreak" label="Coupure de ligne" menu="Insertion"/>
+	<action key="insertnbsp" label="Espace inséccable" menu="Insertion"/>
+	<!-- format -->
+	<action key="clearformat" label="Supprimer le formattage" menu="Format" button="1" icon="ClearFormat"/>
+	<action key="italic" label="Italique" menu="Format" button="1" icon="Italic"/>
+	<action key="bold" label="Gras" menu="Format" button="1" icon="Bold"/>
+	<action key="blockquote" label="Retrait" menu="Format" button="0"/>
+</actions>

@@ -1,0 +1,174 @@
+<html>
+<head>
+<title>
+uFlow Specifications
+</title>
+</head>
+<body>
+
+<hr>
+<center><b>The uFlow communication protocol</b></center>
+<hr>
+
+<p>The uFlow protocol is intended to be usable by most CMS (Content Management Systems) and by most text editors. We searched for such a protocol already existing, it seems that no one exists.
+
+<p>The communication between a CMS and an editor is a documents flow. One should be able to open, save, close a document. One should also be able to see all documents and medias available, and to insert these medias in the document. All communication between the CMS and the editor is through uFlow, no other connexion (ethernet, internet, ...) is needed.</p>
+
+<p>uFlow contains 5 requests/replies implemented over the open standard XML-RPC (www.xmlrpc.com/spec).
+
+<p>The client sends a text request like this:
+
+<p align=center>command id doc [arguments ...]</p>
+
+<ul>
+<li><b>command:</b> OPEN, SAVE, CLOSE, LIST, or GET_MEDIA
+<li><b>id:</b> authenticates the user. Its format is defined and understood by the CMS only, uEasy never tries to interpret it and also handles it as a raw character string.</li>
+<li><b>document:</b> the identifier of the document. ts format is defined and understood by the CMS only, uEasy never tries to interpret it and also handles it as a raw character string.</li>
+</ul>
+
+<p>The server replies a character string like this:
+
+<p align=center>error_code error_msg [reply_data ...]
+
+<p>error_code is an integer that flags an error, for example a denied access. error_msg is used to explain errors with more details, stack traces can be put in error_msg. the standard error_code numbers are detailed below.
+
+<p>Detail of arguments and reply data:
+
+<p><b>OPEN</b>
+<ul>reply_data:
+<blockquote>	
+<li><b>name</b>, the human-readable name for this document.
+<br><i>example: "My diary"</i>
+<li><b>modename</b>, the edition mode to be used
+<br><i>examples: "Wiki" or "Ccms" or "Html"</i>
+<li><b>lang</b>, the language of the user
+<br><i>examples: "fr_FR" or "pt_BR" or "en_EN"</i>
+<li><b>transmission</b>, describes the way 'mode', 'css' and 'data' are transmitted, it's a string that contains the transmission modes for these 3 datas. See the transmission modes below.
+<br><i>example: "URL,DATA,LOCAL" means that 'mode' is an url to the mode file, 'css' _is_ the css file, 'data' is the name of a local file</i>
+<li><b>mode</b>, the AML data, see what is AML below.
+<br><i>example: See below</i>
+<li><b>css</b>, the CSS1 file used to edit the document in a more wysiwyg way.
+<br><i>example: see http://www.w3.org/TR/REC-CSS1</i>
+<li><b>data</b>, the document
+</blockquote>
+</ul>
+
+<p><b>SAVE</b>
+<ul>arguments:
+<blockquote>
+<li><b>modename</b>, the edition mode
+<br><i>example: "org.mygroup.Spip"</i>
+<li><b>transmission</b>, specifies the way 'data' is transmitted. See the transmission modes below.
+<li><b>data</b>, the file data as a character string
+</blockquote>
+</ul>
+
+<p><b>CLOSE</b>
+<p>Neither arguments nor reply_data</p>
+
+<p><b>LIST</b>
+<p>List what a directory contains. More precisely, what the user is allowed to see.</p>
+<ul>arguments:
+<blockquote>
+<li><b>dir</b>, the identifier of the currant directory. If empty, it means the root of all directories
+</blockquote>
+</ul>
+<ul>reply_data:
+<blockquote>
+<li><b>name</b>, the human-readable name for the directory.
+<li><b>dirs</b>, the list of all the sub-directories and their labels, separated with ':' and ','
+<br><i>example dir1:..,dir2:travel,dir3:bathing where dirn is a string defined and understood by the CMS only</i>
+<li><b>documents</b>, the list of the available documents in this directory, together with their mode name, separated with ':' and ','
+<br><i>example dir1/doc1.sgml:my book,dir2/resume.xml:My Resume</i>
+<li><b>medias</b>, the list of medias together with their MIME type and their human-readable name, separated with ':' and ','
+<br><i>example  bullet.png:image/png:Red Bullet,dir1/anim.qt:video/quicktime:My Cat Playing</i>
+</blockquote>
+</ul>
+
+<p><b>GET_MEDIA</b><br>
+<p>Sends back a media, such as an image.
+<ul>arguments:
+<blockquote>
+<li><b>media</b>, the identifier of the media, it is a string which format is defined and understood by the CMS only.
+</blockquote>
+</ul>
+<ul>reply_data:
+<blockquote>
+<li><b>name</b>, the human-readable name of the media
+<li><b>url</b>, the identifier that will point on the media (such as an URL, or something that will be understood and processed by the CMS)
+<br><i>example: http://mydomain.org/img/bullet.png</i>
+<li><b>mime</b>, le type MIME du média,
+<br><i>example: image/png</i>
+<li><b>transmission</b>, specifies the way 'data' is transmitted. See the transmission modes below.
+<li><b>data</b>, the media in base 64
+<br><i>see http://iharder.sourceforge.net/base64/</i>
+</blockquote>
+</ul>
+
+<p><b>Note:</b></p>
+<p>The term 'directory' is here used in a very general way, depending on the CMS it can be in a UNIX filesystem, in a Windows filesystem, in a SQL database, in a XML file, or in any other data system. Identifiers could be any string, such as "disk0%dir1%dir2%file" or "sql\docs/file1" or "86464564242", uEasy won't care. The elements ':' et ',' are separators, those one are importants</p>
+
+<hr>
+<center><b>uFlow error codes</b></center>
+<hr>
+
+<br>777 - ok - No error
+
+<p>Internal errors:
+<br>100 - internal
+<br>110 - server_not_found
+<br>120 - bad_request
+<br>121 - bad_request_param_nb
+<br>130 - bad_reply
+<br>131 - bad_reply_param_nb
+
+<p>
+<br>200 - resource-not-found - a resource file couldn't be found, for example there is no associated plugin
+
+<p>Erreurs logiques:
+<br>300 - locked - the file is locked by another user
+<br>301 - read_denied - the user doesn't have read access on this document
+<br>302 - write_denied - the user doesn't have write access on this document
+<br>303 - not_found - the specified document or media doesn't exist
+
+<hr>
+<center><b>Transmission</b></center>
+<hr>
+
+<p>The OPEN and SAVE requests contain a 'transmission' parameter that specifies the way the data are transmitted:
+<ul>
+	<li>DATA: the request itself contains the data
+	<li>URL: the request contains an URL to the data
+	<li>LOCAL: the request contains the name of a local file that contains the data
+</ul>
+
+<hr>
+<center><b>AML: Actions XML</b></center>
+<hr>
+
+<p>A AML file describes the dialogs that are to be shown in a wysiwyg editor. All formats don't need the same dialogs, a HTML document need tables whereas a RTF document does not.
+<p>Example:
+
+<pre>
+&lt;ACTIONS&gt;
+   &lt;ACTION key="break" label="Line Break"&gt;
+   &lt;ACTION key="h1" label="Chapter" icon="book" button="1"&gt;
+   &lt;ACTION key="h4" label="Surname"&gt;
+      &lt;ICON&gt;
+         6rht4re4jh68ej53teyje2tyj48sjht486ejtej4e94jy8h4te6yjte48tey4j
+      &lt;/ICON&gt;
+   &lt;/ACTIONS&gt;
+&lt;/ACTIONS&gt;
+</pre>
+
+<ul>
+<li><b>key</b> is a keyword knwown by the editor, it is associated to a text action.
+<li><b>label</b> is a string that will be used in the editor's dialogs. Localization is server-side.
+<li><b>button</b> is a boolean (0 or 1) that says if there should be a button for this action in the toolbar.
+<li><b>icon</b> is the name of an icon that will be associated with this action. A few icon names are known, if you want a different icon you may send it as a PNG file encoded as Base64.
+</ul>
+
+<p>The known icon names should be at least: Bold, Italic, Underline, Sub, Super, Strike, UList, OList, Anchor, ClearFormat, Cut, Copy, Paste, Undo, Redo, New, Open, Save.
+
+</body>
+</html>

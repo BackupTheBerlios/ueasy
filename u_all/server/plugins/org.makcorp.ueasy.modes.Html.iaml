@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<actions>
+	<!-- uFlow -->
+	<action key="usave" label="usave" menu="file" button="1" icon="Save"/>
+	<action key="uopen" label="uopen" menu="file" button="1" icon="Open"/>
+	<action key="toggletoolbar" label="toggletoolbar" menu="file"/>
+	<action key="viewsource" label="viewsource" menu="file"/>
+	<action key="exit" label="exit" menu="file"/>
+	<!-- edition -->
+	<action key="undo" label="Annuler" menu="edit" button="0"/>
+	<action key="redo" label="Refaire" menu="edit" button="0"/>
+	<action key="cut" label="Couper" menu="edit"/>
+	<action key="copy" label="Copier" menu="edit"/>
+	<action key="paste" label="Coller" menu="edit"/>
+	<action key="selectall" label="Sélectionner tout" menu="edit"/>
+	<action key="selectparagraph" label="Sélectionnner le paragraphe" menu="edit"/>
+	<action key="selectline" label="Sélectionner la ligne" menu="edit"/>
+	<action key="selectword" label="Sélectionner le mot" menu="edit"/>
+	<action key="find" label="Rechercher" menu="edit" button="1" icon="Save"/>
+	<action key="findagain" label="Rechercher le suivant" menu="edit" button="1" icon="FindAgain"/>
+	<action key="replace" label="Rechercher/Remplacer" menu="edit" button="1" icon="Replace"/>
+	<!-- insertion -->
+	<action key="hrule" label="Regle horizontale" menu="insert" button="1" icon="Save"/>
+	<action key="insertanchor" label="Lien" menu="insert" button="0" icon="Save"/>
+	<action key="insertimage" label="Image" menu="insert"/>
+	<action key="unorderedlist" label="Liste" menu="insert" button="1" icon="UList"/>
+	<action key="orderedlist" label="Liste numérotée" menu="insert" button="1" icon="UList"/>
+	<action key="insertparagraph" label="Paragraphe" menu="insert"/>
+	<action key="insertbreak" label="Coupure de ligne" menu="insert"/>
+	<action key="insertnbsp" label="Espace inséccable" menu="insert"/>
+	<!-- format -->
+	<action key="clearformat" label="Supprimer le formattage" menu="Format" button="1" icon="ClearFormat"/>
+	<action key="selectfont" label="Sélectionner une police" menu="Format"/>
+	<action key="italic" label="Italique" menu="Format" button="1" icon="Italic"/>
+	<action key="bold" label="Gras" menu="Format" button="1" icon="Bold"/>
+	<action key="underline" label="Souligner" menu="Format" button="1" icon="Underline"/>
+	<action key="blockquote" label="Retrait" menu="Format" button="0"/>
+	<action key="strike" label="Barré" menu="Format" button="1" icon="Strike"/>
+	<action key="big" label="Grand" menu="Format" button="0"/>
+	<action key="small" label="Petit" menu="Format" button="0"/>
+	<action key="superscript" label="Grand Script" menu="Format" button="0"/>
+	<action key="subscript" label="Petit Script" menu="Format" button="0"/>
+	<action key="pre" label="Police fixe" menu="Format" button="0"/>
+	<action key="strong" label="Fort" menu="Format" button="0"/>
+	<action key="tt" label="TT" menu="Format" button="0"/>
+	<action key="span" label="Span" menu="Format" button="0"/>
+	<!-- alignment -->
+	<action key="alignleft" label="Gauche" menu="Alignement"/>
+	<action key="aligncenter" label="Centre" menu="Alignement"/>
+	<action key="alignright" label="Droite" menu="Alignement"/>
+	<action key="alignjustify" label="Justifié" menu="Alignement"/>
+	<!-- headings -->
+	<action key="heading1" label="Titre 1 (très grand)" menu="Titres"/>
+	<action key="heading2" label="Titre 2" menu="Titres"/>
+	<action key="heading3" label="Titre 3" menu="Titres"/>
+	<action key="heading4" label="Titre 4" menu="Titres"/>
+	<action key="heading5" label="Titre 5" menu="Titres"/>
+	<action key="heading6" label="Titre 6 (très petit)" menu="Titres"/>
+	<!-- colors -->
+	<action key="aqua" label="Cyan" menu="Couleur" button="0" icon="Save"/>
+	<action key="black" label="Noir" menu="Couleur" button="0" icon="Save"/>
+	<action key="blue" label="Bleu" menu="Couleur" button="0" icon="Save"/>
+	<action key="fuschia" label="Rose" menu="Couleur" button="0" icon="Save"/>
+	<action key="gray" label="Gris" menu="Couleur" button="0" icon="Save"/>
+	<action key="green" label="Vert" menu="Couleur" button="0" icon="Save"/>
+	<action key="lime" label="Lime" menu="Couleur" button="0" icon="Save"/>
+	<action key="maroon" label="Marron" menu="Couleur" button="0" icon="Save"/>
+	<action key="navy" label="Marine" menu="Couleur" button="0" icon="Save"/>
+	<action key="olive" label="Olive" menu="Couleur" button="0" icon="Save"/>
+	<action key="purple" label="Violet" menu="Couleur" button="0" icon="Save"/>
+	<action key="red" label="Rouge" menu="Couleur" button="0" icon="Save"/>
+	<action key="silver" label="Argent" menu="Couleur" button="0" icon="Save"/>
+	<action key="teal" label="Teal" menu="Couleur" button="0" icon="Save"/>
+	<action key="white" label="Blanc" menu="Couleur" button="0" icon="Save"/>
+	<action key="yellow" label="Jaune" menu="Couleur" button="0" icon="Save"/>
+	<!-- table -->
+	<action key="inserttable" label="Nouveau" menu="Tableaux"/>
+	<action key="inserttablerow" label="Insérer une ligne" menu="Tableaux"/>
+	<action key="inserttablecell" label="Insérer une cellule" menu="Tableaux"/>
+	<!-- form -->
+	<action key="insertform" label="Nouveau" menu="Formulaires"/>
+	<action key="inserttextfield" label="Ligne de saisie" menu="Formulaires"/>
+	<action key="inserttextarea" label="Zone de saisie" menu="Formulaires"/>
+	<action key="insertcheckbox" label="Case à cocher" menu="Formulaires"/>
+	<action key="insertradiobutton" label="Case à choix" menu="Formulaires"/>
+	<action key="insertpassword" label="Mot de passe" menu="Formulaires"/>
+	<action key="insertbutton" label="Bouton" menu="Formulaires"/>
+	<action key="insertbuttonsubmit" label="Bouton Soumettre" menu="Formulaires"/>
+	<action key="insertbuttonreset" label="Bouton Restaurer" menu="Formulaires"/>
+</actions>

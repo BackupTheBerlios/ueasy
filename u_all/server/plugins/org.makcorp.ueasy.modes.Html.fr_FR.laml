@@ -1,0 +1,88 @@
+	<laml>
+
+	<category name="menu">
+
+<tr key="file" value="Fichier"/>
+<tr key="edit" value="Edition"/>
+<tr key="insert" value="Insertion"/>
+<tr key="format" value="Format"/>
+<tr key="alignment" value="Alignement"/>
+<tr key="headings" value="Titres"/>
+<tr key="colors" value="Couleurs"/>
+<tr key="table" value="Tables"/>
+<tr key="form" value="Fomulaires"/>
+
+	</category>
+
+	<category name="label">
+
+<!-- uFlow -->
+<tr key="usave" value="Sauvegarder"/>
+<tr key="uopen" value="Ouvrir"/>
+<tr key="toggletoolbar" value="Basculer la barre d'outils"/>
+<tr key="viewsource" value="Basculer code/wysiwyg"/>
+<tr key="exit" value="Quitter"/>
+
+<!-- edition -->
+<tr key="undo" value="Annuler"/>
+<tr key="redo" value="Refaire"/>
+<tr key="cut" value="Couper"/>
+<tr key="copy" value="Copier"/>
+<tr key="paste" value="Coller"/>
+<tr key="selectall" value="Tout sélectionner"/>
+<tr key="selectparagraph" value="Sélectionner le paragraphe"/>
+<tr key="selectline" value="Sélectionner la ligne"/>
+<tr key="selectword" value="Sélectionner le mot"/>
+<tr key="find" value="Rechercher"/>
+<tr key="findagain" value="Rechercher le suivant"/>
+<tr key="replace" value="Remplacer"/>
+<!-- insert -->
+<tr key="hrule" value="Règle horizontale"/>
+<tr key="insertanchor" value="Lien"/>
+<tr key="insertimage" value="Image"/>
+<tr key="unorderedlist" value="Liste"/>
+<tr key="orderedlist" value="Liste numérotée"/>
+<tr key="insertparagraph" value="Paragraphe"/>
+<tr key="insertbreak" value="Saut de ligne"/>
+<tr key="nbsp" value="Espace insécable"/>
+<!-- format -->
+<tr key="clearformat" value="Supprimer le formattage"/>
+<tr key="selectfont" value="Police"/>
+<tr key="italic" value="Italique"/>
+<tr key="bold" value="Gras"/>
+<tr key="underline" value="Souligné"/>
+<tr key="blockquote" value="Retrait"/>
+<tr key="strike" value="Rayé"/>
+<tr key="big" value="Grand"/>
+<tr key="small" value="Petit"/>
+<tr key="superscript" value="Exposant"/>
+<tr key="subscript" value="Indice"/>
+<tr key="pre" value="Police fixe"/>
+<tr key="strong" value="Fort"/>
+<tr key="tt" value="TT"/>
+<tr key="span" value="Span"/>
+<!-- alignment -->
+<tr key="alignleft" value="Gauche"/>
+<tr key="aligncenter" value="Centre"/>
+<tr key="alignright" value="Droite"/>
+<tr key="alignjustify" value="Justifié"/>
+<!-- headings -->
+<tr key="heading1" value="Titre 1 (très grand)"/>
+<tr key="heading2" value="Titre 2"/>
+<tr key="heading3" value="Titre 3"/>
+<tr key="heading4" value="Titre 4"/>
+<tr key="heading5" value="Titre 5"/>
+<tr key="heading6" value="Titre 6 (très petit)"/>
+<!-- colors -->
+<tr key="aqua" value="Cyan"/>
+<tr key="black" value="Noir"/>
+<tr key="blue" value="Bleu"/>
+<tr key="fuschia" value="Rose"/>
+<tr key="gray" value="Gris"/>
+<tr key="green" value="Vert"/>
+
+<!-- todo: continuer -->
+
+	</category>
+
+	</laml>

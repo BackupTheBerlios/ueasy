@@ -1,0 +1,43 @@
+<html>
+<body>
+
+<hr>
+<center><b>uEasy: The to-do List</b></center>
+<hr>
+
+<p><i>The whole project's structure specified, almost everything is implemented. Contributions and enhancements are welcome</i>
+
+<p>Immediate wishes
+<ul>
+<li>Write a plugin for Spip
+<li>Write a plugin for CCMS
+<li>Write a plugin for DocBook
+<li>Traduction for the HTML and Wiki plugins, by now these plugins are only in french
+<li>In case a mode is not found, log it into a special log file so that the admin can see which plugin the users need
+<li>Look for PNG icons for the editor instead of the GIF ones
+</ul>
+
+<p>Mid-term wishes
+<ul>
+<li>Write a CMS interface for Spip
+<li>Write a CMS interface for CCMS
+<li>Enhance the test CMS ( the PHP files in /cms )
+<li>Correct the editor's bugs
+<li>Add images support in the editor
+<li>use uFlow's errorMessage to carry exceptions stack traces
+<li>Wait for the next release of Apache's XML-RPC and use the "liteclient" JAR Ryan Hoegg is planning to do. In the meantime, using xmlrpc-applet JAR would be better than the present JAR which includes far too much code
+<li>Clean up the HTML loading part of the editor
+<li>use Translatrix for the editor-relative dialogs, using a language passed with uFlow's OPEN reply (should be added to the uFlow specification soon), the distributiuon JAR will contain tiny resource files.
+<li>create a Md5SocketServiceServer using java.security.MessageDigest
+<li>Modify ServiceServer and UMainServer this way: the ServiceServer is started by command, batch or bash sript, it reads its properties file looking for Services it has to start, then dynamically loads them.
+<li>Enhance the SocketServiceClient with a web interface, list and state of services, actions on them, log reading
+</ul>
+
+<p>Long-term wishes
+<ul>
+<li>Extend the HTMLEditorKit into an XHTMLEditorKit and use it in the editor
+<li>use a List of UClients and a List of UServers in UMainServer so that it can handle several UClients (for example an internet wysiwyg and a local standalone one) and several UServers (for example a production CMS and a live backup mirror)
+</ul>
+
+</body>
+</html>

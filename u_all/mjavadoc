@@ -1,0 +1,6 @@
+#! /bin/sh
+
+cd ~/uEasy/src
+export CLASSPATH=.:../bin/xmlrpc-1.1.jar:../bin/log4j-1.2.7.jar:../bin/javaplugin.jar
+
+javadoc -private -d ../javadoc/ -windowtitle 'uEasy API' org.makcorp.ueasy.ueditor org.makcorp.ueasy.ueditor.action org.makcorp.ueasy.ueditor.component org.makcorp.ueasy.uflow org.makcorp.ueasy.umainserver org.makcorp.ueasy.aml org.makcorp.ueasy.modes org.makcorp.ueasy.service org.makcorp.ueasy.uapplet org.makcorp.ueasy.ucxclient org.makcorp.ueasy.ustand org.makcorp.ueasy.usxclient org.makcorp.ueasy.usxserver org.makcorp.ueasy.util 

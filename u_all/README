@@ -1,0 +1,58 @@
+You will find the latest documentation about uFlow and uEasy on http://ueasy.berlios.de
+
+Directories and files:
+
+applet/:   jar files and HTML test page for the applet client.
+stand/:    jar files, properties file and bash script for the standalone client.
+server/:   jar files, iaml plugins, properties files, log file and bash scripts for the server
+cms/:      a test CMS (Content Management System)
+utils/:    tools that can be usefull while developping
+src/:      source directory
+bin/:      binaries directory, it contains .class .gif .jar and .properties files
+lib/:      the libraries as JAR files, contains third-party free & open source libraries
+javadoc/:  HTML javadoc-generated documentation
+build.xml: is the ant file that builds the uEasy class and jar files
+mjavadoc:  a script that makes the javadoc
+clean:     a script that remove all class files
+
+---------------
+How to install:
+---------------
+
+- uncompress the ueasy-xxxx.tar.gz into a directory.
+
+------------
+How to test:
+------------
+
+- go in the "server" directory
+- run the "start" script
+- go in the "stand" directory
+- run the "run" script, a wysiwyg editor should appear
+- go in your browser and browse applet/editor.html, the same editor should appear, embedded in an applet
+
+With the editor, you can modify the default document, and save it. You can't use the wysiwyg open button by now.
+
+Requirements:
+- The CMS needs php4 (the standalone php4, not the Apache module)
+- You obviously need a Java Virtual Machine to run the java server. The JRE from java.sun.com should work fine
+
+Next step is to have a look at the configuration files in server/ and server/plugins/ and start hacking ;)
+
+---------------
+How to compile:
+---------------
+
+- go in the ueasy's directory
+- run "ant"
+
+You have to install ant if it is not, it is available as debian package and from jakarta.apache.org
+
+--------
+Credits:
+--------
+
+Thanks to:
+- Howard Kistler who did the great HTML editor (hexidec.com/ekit.php)
+- John Wilson for delivering me a special licence of his MinML (wilson.co.uk)
+- Ramzi Oueslati and the Makina Corpus team for their help (makina-corpus.org)

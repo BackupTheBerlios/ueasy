@@ -1,0 +1,106 @@
+<project default="dist">
+	
+	<description>
+		build file for uEasy Project: applet + standalone application + serveur
+	</description>
+	
+	<path id="javac.path">
+		<fileset dir="lib" casesensitive="yes">
+			<!--<include name="javaplugin.jar"/> non-free -->
+			<include name="xmlrpc-1.1.jar"/>
+			<include name="xmlrpc-1.1-applet.jar"/>
+			<include name="log4j-1.2.7.jar"/>
+		</fileset>
+	</path>
+	
+	<target name="init">
+		<tstamp/>
+	</target>	
+
+	<target name="compile" depends="init">
+		<javac srcdir="src" destdir="bin" debug="true">
+			<classpath refid="javac.path"/>
+		</javac>
+	</target>
+
+	<!-- the applet client's jar -->
+	<target name="dist-applet" depends="compile">
+		<jar destfile="applet/ueasy-applet.jar">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}"/>
+				<attribute name="Implementation-Version" value="${version} ${TODAY}"/>
+			</manifest>
+			<fileset dir="bin/">
+				<include name="org/makcorp/ueasy/uapplet/**"/>
+				<include name="org/makcorp/ueasy/util/**"/>
+				<include name="org/makcorp/ueasy/uflow/**"/>
+				<include name="org/makcorp/ueasy/ueditor/**"/>
+				<include name="org/makcorp/ueasy/usxclient/**"/>
+			</fileset>
+		</jar>
+	</target>
+
+	<!-- the standalone client's jar -->
+	<target name="dist-stand" depends="compile">
+		<jar destfile="stand/ueasy-stand.jar">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}"/>
+				<attribute name="Implementation-Version" value="${version} ${TODAY}"/>
+			</manifest>
+			<fileset dir="bin/">
+				<include name="org/makcorp/ueasy/ustand/**"/>
+				<include name="org/makcorp/ueasy/util/**"/>
+				<include name="org/makcorp/ueasy/uflow/**"/>
+				<include name="org/makcorp/ueasy/ueditor/**"/>
+				<include name="org/makcorp/ueasy/usxclient/**"/>
+			</fileset>
+		</jar>
+	</target>
+
+	<!-- the server's jar -->
+	<target name="dist-server" depends="compile">
+		<jar destfile="server/ueasy-server.jar">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}"/>
+				<attribute name="Implementation-Version" value="${version} ${TODAY}"/>
+			</manifest>
+			<fileset dir="bin/">
+				<include name="org/makcorp/ueasy/aml/**"/>
+				<include name="org/makcorp/ueasy/modes/**"/>
+				<include name="org/makcorp/ueasy/service/**"/>
+				<include name="org/makcorp/ueasy/ucxclient/**"/>
+				<include name="org/makcorp/ueasy/uflow/**"/>
+				<include name="org/makcorp/ueasy/umainserver/**"/>
+				<include name="org/makcorp/ueasy/usxserver/**"/>
+				<include name="org/makcorp/ueasy/ueditor/**"/>
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="dist" depends="dist-applet, dist-stand, dist-server"/>
+
+	<!-- use "ant deb" for faster debugging but not for releases -->
+	<target name="deb" depends="dist-server">
+		<exec executable="cp">
+			<arg line=" -v server/ueasy-server.jar stand/ueasy-stand.jar"/>
+		</exec>
+		<exec executable="cp">
+			<arg line=" -v server/ueasy-server.jar applet/ueasy-applet.jar"/>
+		</exec>
+	</target>
+
+	<!-- does not seem to work by now -->
+	<target name="javadoc">
+		<javadoc sourcepath="src"/>
+	</target>
+
+	<!-- does not seem to work by now -->
+	<target name="clean" depends="init">
+		<exec executable="rm">
+			<arg line="`find ./bin/ -name '*.class'`"/>
+		</exec>
+		<exec executable="rm">
+			<arg line="server/ueasy-server.jar client/ueasy-applet.jar stand/ueasy-stand.jar"/>
+		</exec>
+	</target>
+</project>

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+export CLASSPATH=.:./ueasy-server.jar:../lib/log4j-1.2.7.jar
+
+
+# next line is for use with a LocalAuth
+#java org.makcorp.ueasy.service.SocketServiceClient 8081 stop
+
+# next line is for use with a PassAuth
+java org.makcorp.ueasy.service.PassSocketServiceClient stop

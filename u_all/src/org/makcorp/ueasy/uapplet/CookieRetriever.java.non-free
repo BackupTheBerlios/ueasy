@@ -1,0 +1,59 @@
+/**
+ *  uEasy (http://ueasy.berlios.de)
+ *  Copyright Makina-Corpus (makina-corpus.org), Nicolas Raoul (nraoul@berlios.de)
+ *  This program is distributed under the terms of the GNU General Public License
+ *  See the whole license text in the "LICENSE" file.
+ */
+
+package org.makcorp.ueasy.uapplet;
+
+import netscape.javascript.*;
+import java.applet.Applet;
+import java.util.StringTokenizer;
+
+/**
+ * Convenient class for reading the value of a known cookie
+ */
+
+public class CookieRetriever
+{
+	/**
+	 * Reads a cookie
+	 * If the cookie does not exist, an empty String is returned
+	 * @param applet the applet which is in the window whose url is associated with cookies
+	 * @param cookieName the name of the cookie whose value is to be retrieved
+	 * @return the cookie's value
+	 */
+	public static String read(Applet applet, String cookieName)
+	{
+		String cookies=(String)JSObject.getWindow(applet).eval("document.cookie");
+		StringTokenizer st = new StringTokenizer(cookies, ";", false);
+		while (st.hasMoreTokens())
+		{
+			String cookie=st.nextToken().trim();
+			
+			if(getCookieName(cookie).equals(cookieName))
+				return getCookieValue(cookie);
+		}
+		// if the cookie does not exist, an empty String is returned
+		return "";
+	}
+
+	/**
+	 * @param cookie the "name=value" string
+	 * @return the name
+	 */
+	private static String getCookieName(String cookie)
+	{
+		return cookie.substring (0,cookie.lastIndexOf('='));
+	}
+
+	/**
+	 * @param cookie the "name=value" string
+	 * @return the value
+	 */
+	private static String getCookieValue(String cookie)
+	{
+		return cookie.substring (cookie.lastIndexOf('=') + 1);
+	}
+}

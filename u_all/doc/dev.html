@@ -1,0 +1,400 @@
+<html>
+<head>
+<title>
+Developper Guide
+</title>
+</head>
+<body>
+
+<hr>
+<center><b>uEasy developpment</b></center>
+<hr>
+
+<p>Here you will find technical details about uEasy. This page is usefull for both developpers and system administrators.
+
+<ul>
+	<li>Client-side:
+	<ul>
+		<li>The clients
+		<li>uEasy's editor
+	</ul>
+	<li>Integration with a CMS (Content Management System):
+	<ul>
+		<li>The format plugin system
+		<li>Writing a server plugin
+		<li>Integrating the uEasy server in a CMS
+		<li>Integrating the uEasy applet client in a CMS
+	</ul>
+	<li>Server administration:
+	<ul>
+		<li>The UMainServer modules
+		<li>The server start/reload/stop system
+		<li>The service server
+		<li>Server-side security
+	</ul>
+</ul>
+
+<hr>
+<center><b>The Clients</b></center>
+<hr>
+
+<p>Clients are communicating with the UMainServer through the uFlow protocol. So any kind of client knowing uFlow can communicate with the server, this can be:
+<ul>
+	<li>the uEasy Wysiwyg (What You See Is What You Get) client
+	<li>another uFlow-aware wysiwyg, in Java, C, Flash or whatever
+	<li>a uFlow router
+</ul>
+
+<hr>
+<center><b>uEasy's editor</b></center>
+<hr>
+
+<p>The uFlow editor is a wysiwyg editor like Composer, Dreamweaver or Amaya. However, it's a rather special one because it can edit any kind of formats, thanks to the server's plugins. In fact, the editor only knows HTML, but this is hidden, the user believes he is editting another format.</p>
+<p>When opening a document, a XML file containing actions is sent together with the document data. This action XML (or "AML") looks like this:
+<pre>
+&lt;action key=&quot;orderedlist&quot; label=&quot;Ordered List&quot; menu=&quot;Insert&quot;/&gt;
+&lt;action key=&quot;red&quot; label=&quot;Note&quot; menu=&quot;Format&quot;/&gt;
+&lt;action key=&quot;image&quot; label=&quot;Image&quot; menu=&quot;Insert&quot;/&gt;
+</pre>
+
+<p>The editor only loads the specified dialogs. For example, the Wiki format doesn't have images, a Wiki document can't have images. So there won't be a "Insert Image" dialog in the editor.
+
+<p>This allows clients to edit a lot of different formats with this single editor.
+
+<p>You won't be able to write plugins for *any* kind of file formats, such as excel files. It needs to be formatted text. By now, the editor features:
+<ul>
+	<li>bold, italic, underline, strike, sub, super, pre, span, headings ...
+	<li>HTML colors
+	<li>alignment
+	<li>lists
+	<li>tables
+	<li>forms
+</ul>
+<p>You can not:
+<ul>
+	<li>handle pages 
+	<li>handle format-specific programming instruction like Macro in MS-Word or javascript in HTML
+</ul>
+
+<p>This is not a heavy editor, but it should be sufficiant to edit most file formats, like HTML, RTF, Spip, RDF, etc... The editor support CSS1 stylesheets, the user is able to apply the available styles of the stylesheet.</p>
+
+<hr>
+<center><b>The format plugin system</b></center>
+<hr>
+	
+<p>The CMS, the uEasy server and the uEasy client are communicating through the uFlow protocol. The user asks for a document, giving an authentication. The uEasy server transmits this request to the CMS. The CMS validates the authentication, and sends the document to the server. The server translate this document to HTML using a plugin, and sends to the client: 1) the HTML document 2) the allowed actions for this format(for example, the Wiki format won't allow to draw tables). The user can now edit the document in a wysiwyg way.
+
+<p>When finished, the user clicks on the "Save" dialog, the document is sent to the server, translated back to its original format using the plugin, and finally the CMS saves it.
+
+<p>Let consider I want to build a plugin for the Wiki format, then I need this:
+<ul>
+	<li>A piece of Java to translate Wiki to HTML<br>
+	<font size="-1">&nbsp;SAMPLE LINE: data = data.replaceAll(&quot;&lt;&quot;,&quot;&amp;lt;");</font></li>
+	<li>A piece of Java to translate back HTML to Wiki<br>
+	<font size="-1">&nbsp;SAMPLE LINE: data = data.replaceAll(&quot;&amp;lt;&quot;,&quot;&lt;&quot;);</font></li>
+	<li>A XML file that describes the available client-side dialogs<br>
+	<font size="-1">&nbsp;SAMPLE LINE: &lt;action key=&quot;orderedlist&quot; label=&quot;Ordered List&quot; menu=&quot;Insert&quot;/&gt;</font></li>
+</ul>
+
+<p>The 2 pieces of Java are 2 functions in a single Java file, for example org.mygroup.Wiki.java. The XML file can be named org.mygroup.Wiki.iaml. You need a Java compiler to build org.mygroup.Wiki.class. A plugin is the set of these 2 files: org.mygroup.Wiki.class and org.mygroup.Wiki.iaml</p>
+
+<p>You can add and remove plugins just by adding and removing these 2 files for the server's classpath. There is no need to restart the server or to send it any signal.</p>
+
+<center><h4>TODO</h4></center>
+
+<p>By now, the only way of internationalization is to create a different plugin. In version 1.0, instead of the IAML file there will be an AML file and one ressource file per language. The ressource file will be in an XML format.</p>
+
+<p>In the 1.0 version, plugins will single files, such as org.mygroup.Wiki.jar, it is easier to manipulate one-file plugins.</p>
+
+<hr>
+<center><b>Writing a server plugin</b></center>
+<hr>
+
+<p>You want to write a plugin for a format.
+
+<p>You should ask yourself: What do you want the users to modify ? The whole file, the information part of it, the headers ? Usually, it's only the information part of it, its body or equivalent. If there are other parts to the document, the plugin should put them in HTML comments. If there are macros or any others parts the editor won't be able to handle, the plugin should put them too in comments. Here is a file of a fictionnal format, and a possible traduction.
+
+<table><tr><td bgcolor="#CED4F8">
+<pre>
+@myqueerformat v98.35b
+@author:José
+@date:08-01-2003
+@body
+Hello, my name is _color:red_José_
+I wrote _underline_this_ document.
+@end
+</pre>
+</td><td>-Plugin-</td><td bgcolor="#CED4F8">
+<pre>
+&lt;html&gt;
+&lt;!--
+author:José
+date:08-01-2003
+--&gt;
+&lt;body&gt;
+&lt;p&gt;Hello, my name is &lt;font color="red"&gt;José&lt;/font&gt;&lt;br/&gt;
+I wrote &lt;u&gt;this&lt;/u&gt; document.
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</td></tr></table>
+
+<p>The purpose of the plugin is to translate from one to the other and back. The plugin for this format won't be complicated, it will probably involve a few regexps and a few more lines for the header. The plugin also is the AML file, which would in this case look like this:
+
+<table><tr><td bgcolor="#CED4F8">
+<pre>
+&lt;?xml version="1.0"?&gt;
+&lt;actions&gt;
+&lt;action key=&quot;paragraph&quot; label=&quot;Paragraph&quot; menu=&quot;Insert&quot;/&gt;
+&lt;action key=&quot;red&quot; label=&quot;Red&quot; menu=&quot;Color&quot;/&gt;
+&lt;action key=&quot;underline&quot; label=&quot;Underline&quot; menu=&quot;Format&quot;/&gt;
+&lt;/actions&gt;
+</pre>
+</td></tr></table>
+
+<p>This is for the case of casual text formatting. Now, there are more specific document formats. Let's take the example of DocBook. In this case, the translation to HTML is far less obvious, more reflexion is needed: 
+
+<table><tr><td bgcolor="#CED4F8">
+<pre>
+&lt;!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V3.1//EN"&gt;
+&lt;book&gt;
+&lt;bookinfo&gt;
+&lt;title&gt;My First Book&lt;/title&gt;
+&lt;author&gt;&lt;name&gt;Jane Doe&lt;/name&gt;&lt;/author&gt;
+&lt;/bookinfo&gt;
+
+&lt;preface&gt;&lt;title&gt;Foreword&lt;/title&gt; ... &lt;/preface&gt;
+
+&lt;chapter&gt;
+&lt;title&gt;My Chapter&lt;/title&gt;
+&lt;para&gt; ... &lt;/para&gt;
+&lt;sect1&gt;
+&lt;title&gt;First Section&lt;/title&gt;
+&lt;para&gt; ... &lt;/para&gt;
+&lt;example&gt; ... &lt;/example&gt;
+&lt;/sect1&gt;
+&lt;bibliography&gt; ... &lt;/bibliography&gt;
+&lt;/chapter&gt;
+
+&lt;chapter&gt; ... &lt;/chapter&gt;
+&lt;chapter&gt; ... &lt;/chapter&gt;
+&lt;appendix&gt; ... &lt;/appendix&gt;
+&lt;appendix&gt; ... &lt;/appendix&gt;
+&lt;index&gt; ... &lt;/index&gt;
+&lt;/book&gt;
+</td><td>-Plugin-</td><td bgcolor="#CED4F8">
+<pre>
+&lt;html&gt;
+&lt;body&gt;
+&lt;!-- &lt;!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V3.1//EN"&gt; --&gt;
+&lt;u&gt;My First Book&lt;/u&gt;
+&lt;i&gt;Jane Doe&lt;/i&gt;
+&lt;b&gt;2003&lt;/b&gt;
+
+&lt;font color=red&gt;Foreword&lt;/font&gt;
+...
+
+&lt;h1&gt;My Chapter&lt;/h1&gt;
+...
+&lt;h2&gt;First Section&lt;/h2&gt;
+...
+&lt;pre&gt; ...Example... &lt;/pre&gt;
+&lt;i&gt; ...Bibliography... &lt;/i&gt;
+
+&lt;h1&gt;...&lt;/h1&gt; ...
+&lt;h1&gt;...&lt;/h1&gt; ...
+&lt;font color=navy&gt; ... &lt;/font&gt;
+&lt;font color=navy&gt; ... &lt;/font&gt;
+&lt;h4&gt; ... &lt;/h4&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</td></tr></table>
+
+<p>As you can see, DocBook is very structured, the plugin will have to check the structure and modify it if it is badly formed, for example if the user writes a chapter in a bibliograhy</p>
+<p>Here, the dialogs of the editor won't be "H1", "H2", "Italics" etc but "Chapter", "Section", "Bibliography" etc. Let's take a look at the AML file which could be used:
+
+<table><tr><td bgcolor="#CED4F8">
+<pre>
+&lt;?xml version="1.0"?&gt;
+&lt;actions&gt;
+&lt;action key=&quot;heading1&quot; label=&quot;Chapter&quot; menu=&quot;General&quot;/&gt;
+&lt;action key=&quot;heading2&quot; label=&quot;Section&quot; menu=&quot;General&quot;/&gt;
+&lt;action key=&quot;italic&quot; label=&quot;Bibliography&quot; menu=&quot;General&quot;/&gt;
+...
+&lt;/actions&gt;
+</pre>
+</td></tr></table>
+
+<center><h4>Future</h4></center>
+
+<p>Here I used h1, h2, italics, but it could be another solution to use CSS styles for this. But the CSS stylesheet transmitted to the editor together with DocBook document would be quite important in this case, it could be considered as a part of the plugin. For that reason, it is not recommended to use CSS this way. CSS should remain for style.
+
+<hr>
+<center><b>Integrating the uEasy server in a CMS</b></center>
+<hr>
+
+<p>If the interface between your CMS (Content Management System) and uEasy is available, read its documentation. Otherwise, you will have to program it, in that case you should read this paragraph.
+
+<p>The interface between uEasy and the CMS is a module, changing one line in umainserver.properties will do the trick. However, by now there is only one module available: org.makcorp.ueasy.ucxclient.UcxClient</p>
+
+<center><h4>Using org.makcorp.ueasy.ucxclient.UcxClient</h4></center>
+
+<p>The UcxClient is a uFlow Command-line-using Xml-rpc Client. It has a configuration file which is worth an explanation:</p>
+
+<table><tr><td bgcolor="#CED4F8">
+<pre>
+OPEN=php4 -q /home/nr/uEasy/cms/open.php
+SAVE=php4 -q /home/nr/uEasy/cms/save.php
+CLOSE=php4 -q /home/nr/uEasy/cms/close.php
+LIST=php4 -q /home/nr/uEasy/cms/list.php
+GET_MEDIA=php4 -q /home/nr/uEasy/cms/get_media.php
+</pre>
+</td></tr></table>
+
+<p>Here are the 5 commands of the uFlow protocol. Your job is now to write the PHP files. Of course it could be Perl, Python, C++ or any programming language you can call from the command line.</p>
+
+<center><h4>Choosing a programming language</h4></center>
+
+<p>You have to choose a programming language for the interface. The best choice is usually to use the language of the CMS, because the CMS usually have libraries you can use at a top level. Then the top-level fonctions will check the identity of the user and, for example, save the document. You should try and avoid going in the dark underbelly of the CMS, it would dramatically limit the portability of your interface and it could interact badly with the CMS. You should use the top-level functions of the CMS, make your interface a plugin if there is a plugin interface</p>
+
+<center><h4>Case of a Java CMS</h4></center>
+
+<p>If your CMS is in Java (for example, OpenCMS is in Java), you should program the interface in Java with a class that "extends org.makcorp.ueasy.uflow.UServer".</p>
+<p>Just for fun: If you put org.makcorp.ueasy.usxclient.UsxClient as the "server" module in umainserver.properties, you just have a uFlow router, which takes uFlow requests and sends them to another server. The module system, as a Lego brick system, allows to build any kind of usefull or useless structures.</p>
+
+<hr>
+<center><b>Integrating the uEasy applet client in a CMS</b></center>
+<hr>
+
+<p>In most CMS there is a place where the user can edit documents with HTML text areas. You should keep this textarea system, lots of users appreciates its speed. Besides the textareas would fit a link to a pop-up containing this HTML code:
+
+<table><tr><td bgcolor="#CED4F8">
+<pre>
+&lt;HTML&gt;
+	&lt;BODY&gt;
+		&lt;APPLET
+				CODEBASE="http://www.myserver.org/cms/ueasy-applet/"
+				CODE="org.makcorp.ueasy.uapplet.UApplet.class"
+				ARCHIVE="ueasy-applet.jar,xmlrpc-1.1.jar"
+				NAME="UApplet"
+				WIDTH="700"
+				HEIGHT="400"
+				MAYSCRIPT="true"&gt;
+
+			&lt;PARAM NAME="U_XMLRPC_SERVER" VALUE="http://www.myserver.org:8080"&gt;
+			&lt;PARAM NAME="U_DOCUMENT" VALUE="mydocument.spip"&gt;
+			&lt;PARAM NAME="U_ID" VALUE="robert:e864hRz"&gt;
+		&lt;/APPLET&gt;
+	&lt;/BODY&gt;
+&lt;/HTML&gt;
+</td></tr>
+</table>
+
+<p>The important lines are the 3 last parameters. http://www.myserver.org:8080 is the location of the uEasy server. mydocument.spip is the document to be edited when the applet starts. robert:e864hRz is for user authentication. These 3 parameters will usually be dynamically generated server-side by the CMS.</p>
+
+<hr>
+<center><b>The UMainServer modules</b></center>
+<hr>
+
+<p>The UmainServer itself is only a 5 Ko file, but this is its core class. The server uses "modules". There are 5 modules, each one is a class that implements a specific fonctionnality. Take a look at my umainserver.properties:</p>
+<table><tr><td bgcolor="#CED4F8">
+<pre>
+translator=org.makcorp.ueasy.modes.ClTranslator
+amlfactory=org.makcorp.ueasy.aml.LocalAmlFactory
+server=org.makcorp.ueasy.ucxclient.UcxClient
+client=org.makcorp.ueasy.usxserver.UsxServer
+serviceserver=org.makcorp.ueasy.service.SocketServiceServer
+</pre>
+</td></tr></table>
+<ul>
+	<li>translator: handles the translation from a format to HTML and back.
+	<li>amlfactory: provides the AML files
+	<li>server: communicates with the CMS (Content Management System)
+	<li>client: handles the clients, usually with a TCP socket
+	<li>serviceserver: handles the reload/stop of the server
+</ul>
+<p>That way, changing from a way of doing things to another is as quick as changing a line in the umainserver.properties file.</p>
+<p>With this configuration, the server opens a socket to accept clients, but it could be accepting clients from another server like Apache or Tomcat, from a program, through FTP, through a home-made protocol over the serial port or by any communication mean ever imagined.</p>
+<p>With this configuration, the UMainServer communicates with UcxClient, which is a uFlow XML-RPC client sending uFlow requests by command line and receives replies with stdout, but it could be communicating another way, by example sending its requests to another server, to another UMainServer, to a daemon or to another program through pipes or through another protocol.</p>
+
+<hr>
+<center><b>The server start/reload/stop system</b></center>
+<hr>
+
+<p>Starting the server is quite straightforward, this is done by running "java org.makcorp.ueasy.UMainServer". The server then reads its properties file and loads its modules.</p>
+<p>Reloading and stopping are less straightforward, mainly because it is driven by a module, which means you can change from a socket-driven service module to a signals-driven service module by changing a single line in the umainserver.properties file.</p>
+<ul>
+	<li>SocketServiceServer listens to a socket that receives TCP data (XML would be better than the actual text one). Advantage: the servre can be administrated from internet without any ssh connexion.</li>
+	<li>SignalServiceServer is administrated with UNIX signals. That is the way Apache is administrated. The bad thing about it is that it is not portable to non-UNIX systems.</li>
+	<li>FileServiceServer has a Thread that read files for administration orders</li>
+</ul>
+
+<hr>
+<center><b>The service server</b></center>
+<hr>
+
+<p>To start the server, you just have to run "java UMainServer &amp;" or an equivalent bash or batch script. But what about stopping or reloading the server ? Servers like Apache usually use system-dependant methods to be handled as a service. I didn't choose a strategy rather than another one, it is up to the administrator to choose the appropriate one among the available "serviceserver" modules.
+
+<p>The server's main class, UMainServer, implements Service. This means that it has the serviceReload and serviceStop methods. UMainServer beig a Service, you can give it to a ServiceServer</p>
+
+<p>By now there are three different strategies (and modules):
+<ul>
+	<li>"NoWay": Nobody will be authenticated. To stop the service, you will have to terminate the Java Virtual Machine by hand.
+	<li>"Local": Every user logged on localhost will be authenticated.
+	<li>"Pass": Every body having the password or able to read it in the "passfile" will be authenticated.
+	<li>"Md5": Every body having the password will be authenticated (not developped yet)
+</ul>
+<p>According to the system, the administrator should modify the "serviceserver" line in umainserver.properties to change from a strategy to another.
+<p>On Windows, I suggest "Md5".
+<p>On UNIX, I suggest to use "Pass" and to set the passfile's rights to "rw- r-- ---", owning to ueasy:uadmins so that only the user can read the password. It involves creating a special user "ueasy" to run uEasy, belonging to the uadmins group. Only the users in the uadmins group will be able to reload/stop uEasy.
+
+<center><h4>TODO</h4></center>
+
+<ul>
+	<li>In version 1.0, the Service Server will be also able to start the uEasy Server.
+	<li>An applet-embedded client with a SocketServiceClient would be nice to start/reload/stop the uEasy server easily.
+</ul>
+
+<hr>
+<center><b>Server-side security</b></center>
+<hr>
+
+<p>While developping a client-server application, security is something really important. Here I will guess it's about a standard uEasy server with a network server and a CMS. Three points are critical:
+<ul>
+	<li>The CMS (authentication about documents)
+	<li>The network server (no authentication)
+	<li>The service server (authentication about the service)
+</ul>
+<p>Role of each one:
+<ul>
+	<li>The CMS has its own security system about documents, such as, who can modify or read a document. uEasy just transmits requests and it's the CMS's job to decide if it's allowed or not.
+	<li>The network server accepts socket connexion from anywhere, verify the integrity of the uFlow requests and transmits them to the UMainServer
+	<li>The service server has different implementations, each one has its specific security issues. They all are about letting someone start/reload/stop the uEasy server.
+</ul>
+<p>There is no known security hole in the uEasy part. Please check regulary news and updates from the CMS, from uEasy, from the CMS-uEasy interface, because there could be bugs.
+<p>Bugs in the CMS could lead to document destruction or stealing. Bugs in the service server could lead to a uEasy server shutdown. Using bugs in Java servers, an intruder could, in the worse case, get control on:
+<ul>
+	<li>the "ueasy" user on UNIX
+	<li>the whole system on Windows
+</ul>
+
+<hr>
+<center><b>Developpment</b></center>
+<hr>
+
+<ul>
+<li>You can use the CVS on ueasy.berlios.de
+<li>If you release something, please think about the version number. Each of these have separate version numbers:
+<li>
+<ul>
+	<li>uEasy modules
+	<li>format plugins
+	<li>the UMainServer
+</ul>
+<li>When creating a module or a plugin, please think about the namespace. I personnaly use org.makcorp.ueasy.*, if you are "me@mygroup.org", you should use "org.mygroup.me".
+<li>Please avoid using non-free libraries
+</ul>
+
+</body>
+</html>

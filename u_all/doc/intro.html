@@ -1,0 +1,186 @@
+<html lang="fr">	
+<head>
+<title>uEasy: Introduction</title>
+</head>
+<body>
+
+<p align="right">
+Nicolas Raoul<br/>
+uEasy: Introduction<br/>
+19/12/2002</p>
+
+<hr/>
+<center>Les CMS (Content Management System)</center>
+<hr/>
+
+<p>Un des problèmes de l'informatique, et d'internet en particulier, est la séparation entre techniciens et utilisateurs, trop souvent les utilisateurs se contentent de la reception unilatéral d'information, alors que toute communication humaine devrait être un échange. Dans cette optique, il est nécessaire de développer des outils qui permettent aux non-informaticiens de rédiger et d'envoyer des informations vers un site web. Il existe deux difficultés majeurs pour ces gens:</p>
+<ul>
+	<li>L'édition dans le language du web, c'est à dire HTML</li>
+	<li>L'envoi des documents vers un serveur web</li>
+</ul>
+<p>Pour le premier point, de nombreux logiciels permettent d'éditer du HTML de manière transparente, la page HTML apparait à peu près comme elle apparaitra sur le site. Un tel outil est nommé "Wysiwyg" (What You See Is What You Get").</p>
+<p>Pour le second point, il existe des logiciels qui permettent de se connecter sur un serveur FTP et de tranférer des fichiers</p>
+
+<p>A priori, il semble donc que les utilisateurs lambda peuvent créer, modifier et supprimer des pages d'un site comme bon leur semble. Mais il y a 2 problèmes principaux qui font que peu de sites pevent être gérés de cette façon:</p>
+
+<p>Tout d'abord, les éditeurs wysiwyg ne permettent pas d'éditer la page exactement comme elle apparaitra, les différences sont très flagrantes dans le cas d'utilisation de feuilles de styles CSS (Cascading Syle Sheet).</p>
+
+<p>Ensuite, la procédure d'envoi sur le serveur n'est pas aisée pour un utilisateur lambda, il faut disposer des logiciels adéquats pour télécharger les fichiers à éditer, les éditer, et les renvoyer sur le serveur (au bon endroit si possible). Cette procédure est difficile pour un utilisateur novice, dangereuse, et surtout, très coûteuse en temps.</p>
+
+<p>Pour cette raison, les sites web ne sont plus faits de cette façon depuis quelques années. Tout site web un peu conséquent se doit de respecter le principe de la séparation du contenu et de la présentation. Certains fichiers contiennent les informations proprement dites, les autres contiennent des directives stylistiques qui donne une cohérance à un site:</p>
+<ul>
+	<li>Les styles (couleurs, taille des caractères, etc...), à l'aide de feuilles de style CSS ou XSLT</li>
+	<li>Les éléments inamovibles su site, par exemple une bannière en haut et une barre de navigation sur le côté</li>
+</ul>
+
+<p>Un logiciel sur le serveur fait la synthèse entre les informations et la présentation en fabrique la page web sur laquelle le visiteur navigue. Ce logiciel peut être écrit en PHP, en C, en perl, en python, en Java, en JSP ou avec de nombreux autres languages. Il existe de très nombreux logiciels de ce type, on les nomme CMS (Content Management System).</p>
+
+<p>Les CMS sont très nombreux et très variés. Leurs différences sont notament:</p>
+<ul>
+	<li>Licence d'utilisation: certains sont extrêmement coûteux, d'autres sont libres et gratuits</li>
+	<li>Language de programmation: PHP, C, perl, python, Java, JSP, etc...</li>
+	<li>Stockage des données: MySQL, PostGreSQL, filesystem UNIX, filesystem FAT</li>
+	<li>Format des données: Chaque CMS stocke ses données différement.</li>
+</ul>
+
+<p>Quelques CMS:</p>
+<ul>
+	<li>Spip, orienté vers le journalisme</li>
+	<li>OpenCMS</li>
+	<li>CCMS, un CMS libre développé par Makina-Corpus</li>
+	<li>etc ...</li>
+</ul>
+<p>UN CMS offre généralement une interface web qui permet à l'utilisateur de rentrer des informations. Dans le cas de Spip par exemple, l'utilisateur est face à 3 zones de texte, une pour le titre, une pour le résumé et une pour le corps de l'article. Le problème est qu'une zone de texte sur une page web ne permet pas de faire du formattage. Les CMS resolvent le problème de diverses façons:</p>
+<ul>
+	<li>La plupart des CMS utilisent un pseudo-HTML. Par exemple, pour mettre un mot en italique, il faut l'entourer du symbole '*'. Exemple: 'Il est *urgent* de trouver une solution'. L'utilisateur tape ce texte, et dans la page, le mot 'urgent apparaitra en italique. Cette solution est souple mais n'est as très visuelle pour l'utilisateur. On retrouve cette technique dans beaucoup de CMS</li>
+	<li>D'autres CMS utilisent un composant ActiveX présent dans la plupart des navigateurs Microsoft Explorer. Le problème est que cette solution ne fonctionne pas pour les utilisateurs de Netscape, Galeon, Opera, etc. Cette solution n'est donc pas envisageable pour des sites ayant un grand nombre de rédacteurs</li>
+	<li>D'autres CMS utilisent des plugins, ce qui pose encore le problème du support des différents navigateurs.</li>
+	<li>D'autres CMS utilisent des logiciels clients, qui nécessite une installation sur chaque poste client.</li>
+	<li>Quelques CMS commerciaux utilisent une applet d'édition Java propriétaire</li> 
+</ul>
+
+<p>Makina-Corpus a développé un CMS nommé CCMS (Collaborative Content Management System) qui correspond à la première catégorie. Dans le soucis d'apporter aux utilisateurs un mode d'édition plus visuel, mon responsable de stage a cherché une solution convenable qui fonctionne à la fois sur Internet Explorer et sur Netscape Navigator. La contrainte était que l'éditeur devait être distribué en open-source, pour des raisons de licence. Cette recherche n'a pas donné de résultats, un tel produit n'existe pas encore. Il fallait donc le développer.</p>
+
+<hr/>
+<center>Définition du besoin</center>
+<hr/>
+
+<ul>
+	<li>Client sous forme d'applet Java</li>
+	<li>Utilisable sans connaissance de HTML ou XML</li>
+	<li>Compatibilité avec plusieurs formats source</li>
+	<li>Usage d'un format médian de traitement sous forme XML</li>
+	<li>Multilingue</li>
+	<li>Réutilisable pour d'autres CMS</li>
+	<li>Distribuable en licence open-source</li>
+</ul>
+
+<hr/>
+<center>Flux de communication uFlow</center>
+<hr/>
+
+<p>La spécification de ce flux a été l'un des éléments les plus coûteux en termes de temps. Il s'agissait de définir une interface commune, multi-languages et multi-formats, permettant de faire communiquer un CMS quelconque avec un éditeur quelconque.</p>
+
+<p>Ce flux que j'ai nommé uFlow prend cette syntaxe:</p>
+
+<p>Requête: METHOD [arguments]
+<br/>Réponse: [reply]</p>
+
+<p>METHOD peut être l'une des 5 méthodes suivantes qui se retrouvent sur la grande majorité des CMS et des éditeurs:</p>
+<ul>
+	<li>OPEN: ouvrir un document</li>
+	<li>SAVE: sauvegarder un document</li>
+	<li>CLOSE: fermer un document</li>
+	<li>LIST: obtenir une liste de fichiers utilisables</li>
+	<li>GET_MEDIA: transférer un media</li>
+</ul>
+
+<p>Ce protocole a ensuite été implémenté dans de nombreuses circonstances pour de nombreux composants du projet.</p>
+
+<p>La question s'est posée de savoir si le serveur uEasy devait s'occuper de l'authentification. J'ai tranché par la négative, car chaque CMS a son propre système d'authentification, essayer de reproduire ce système dans le serveur serait une forte atteinte à la portabilité de uEasy, ce n'est pas son rôle. De même pour la base de données, les CMS reposent sur des bases de données de types très divers (système de fichiers, base SQL, XML, ...). Je ne devais donc pas essayer de mimer tel ou tel CMS, mais plutot présenter à tous les CMS une interface qui leur est commune, c'est ce protocole "uFlow".</p>
+
+<hr/>
+<center>Composants du projet</center>
+<hr/>
+
+<p>L'utilisateur ne voit que l'interface web du CMS et le client uEasy. Mais derrière doivent se trouver un serveur capable entre autres de fournir les documents à l'applet et d'ecouter l'applet pour l'enregistrement. Le schéma général est le suivant:</p>
+<img src="general.png"/>
+
+<p><p>uEasy consiste en:
+<ul>
+	<li>La spécification du format de communication uFlow
+	<li>La spécification du format de données pour le texte formaté UXML
+	<li>La spécification du format de construction de dialogues AML
+	<li>Un client d'édition wysiwyg pour des documents UXML, disponible sous forme d'applet et sous forme d'application
+	<li>Un serveur web de documents multi-format communiquant avec le CMS
+	<li>Des plugins de formats
+	<li>Des interfaces de CMS
+</ul>
+
+
+<hr/>
+<center>Choix technologiques</center>
+<hr/>
+
+<center><h4>Language de programmation</h4></center>
+
+<p>En ce qui concerne le language de programmation, le choix s'est porté sur Java pour des raisons de portabilité. En effet, un programme écrit en Java peut être executé sur n'importe quel client sous Linux, Windows ou Mac. Java est le seul lanuage qui permette une très bonne portabilité.</p>
+
+<center><h4>Protocole de communication</h4></center>
+
+<p>Devant traverser des réseaux de type ethernet et internet, la communication entre le serveur et le client se fait par l'ouverture d'un port sur le serveur. J'ai choisi pour la communication sur ce port le protocole standard XML-RPC qui est une sur-couche sur HTTP/1.0. Pour cette communication, plusieurs choix étaient possibles, ici classés en ordre de spécialisation décroissante:</p>
+<ul>
+	<li>RMI</li>
+	<li>CORBA</li>
+	<li>SOAP</li>
+	<li>XML-RPC</li>
+	<li>HTTP</li>
+	<li>UDP</li>
+</ul>
+<p>RMI est spécifique à Java et devait donc être exclu pour permettre la conception d'éléments (serveurs ou clients) non-Java. CORBA et SOAP sont portables sur de nombreux languages mais sont orientés objet alors que le flux entre le client et le serveur n'est pas un flux d'objets. HTTP et UDP ne sont par contre pas assez structurés pour le flux composés de plusieurs données. XML-RPC s'est imposé par sa souplesse et sa légèreté.</p>
+
+<center><h4>Logs</h4></center>
+<p>Les logs sont un élément essentiel pour un serveur. A chaque fois que le serveur traite une requête ou rencontre des difficultés, il écrit des informtions dans un fichier, ce qui permet aux administrateurs de vérifier le bon fonctionnement du serveur de comprendre plus vite les eventuels problèmes. La solution immédiate aurait été de gérer directement les écritures sur ce fichier, mais cette solution manque de souplesse. L'utilisation de la librairie log4j offre une solution efficace à ce problème. L'administrateur peut ainsi régler la verbosité du log, et les données sont classées avec cohérance.</p>
+
+<hr/>
+<center>Sécurité</center>
+<hr/>
+
+<p>Dans le développement d'un serveur, la sécurité contre les attaques de tous types est primordiale. L'authentification relative aux droits d'accès sur les documents du CMS est relative au CMS, qui est le seul à savoir à qui appartient quel document. Cette partie est donc directement déléguée au CMS. uEasy est par contre responsable du fonctionnement du serveur. Le système d'authentication donne ou non le droit a un utilisateur de redémarrer ou stopper le serveur. J'aurai pu opter pour une stratégie d'authentification plutôt qu'une autre, mais celà aurait forcément induit des limitations fonctionnelles. J'ai donc choisi de rendre cette partie modulaire: L'administrateur change une ligne dans un fichier pour changer de gestionnaire d'authentification, pour l'instant deux sont disponibles :</p>
+
+<center><h4>Authentification locale</h4></center>
+
+<p>Pour démarrer/redémarrer/stopper le serveur, il est nécessaire et suffisant d'être loggé en user sur la machine serveur. Les failles de sécurité possibles sont les suivantes:</p>
+<ul>
+	<li>Arrêt intempestif du serveur après usurpation de l'IP 127.0.0.1 sur le réseau (impossible à priori)</li>
+	<li>Arrêt intempestif du serveur après gain d'un user (user malveillant ou mot de passe faible ou trou de sécurité)</li>
+</ul>
+
+<center><h4>Authentification par mot de passe</h4></center>
+
+<p><p>Pour démarrer/redémarrer/stopper le serveur, il est nécessaire et suffisant d'avoir le droit de lecture sur un fichier convenu. Si par exemple le root a mis ce fichier en "-rw------", lui seul y a accès donc lui seul a les droits sur le serveur.
+
+<hr/>
+<center>Licences</center>
+<hr/>
+
+<p>Un des principes forts de la programmation est la réutilisation du code déjà écrit par d'autres personnes. La réutilisation se heurte souvent à des problèmes de licence auxquels il convient de porter une attention particulière. Il existe une multitude de licence différentes mais on peut noter deux grandes familles:</p>
+<ul>
+	<li>Les logiciels propriétaires: l'utilisateur a le droit d'utiliser le logiciel mais ne peut pas le modifier ni le distribuer. Exemple: le EULA de Microsoft</li>
+	<li>Les logiciels libres: l'utilisateur peut modifier le logiciel et le distribuer,  mais ne peut pas le revendre ni l'intégrer à un logiciel non-libre. Exemple: la GNU-GPL</li>
+</ul>
+
+<p>Dans la logique de l'entreprise Makina-Corpus, société de service en Logiciels Libres, le projet uEasy était depuis le départ destiné à être distribué sous licence GNU-GPL. L'utilisation de cette licence n'est pas toujours facile, en particulier, il a fallu ne pas intégrer dans le projet des logiciels non-libres.</p>
+<p>Un exemple de problème de licence: MinML est une librairie légère de traitement XML SAX qui trouvait une place logique dans mon application. Le problème: MiniML est distribué sous licence BSD-1. Cette licence stipule que quiconque réutilise ce logiciel doit citer le nom de l'auteur. Intégrer MinML m'obligeait donc à contraindre ceux qui réutiliseront uEasy de faire de même. Donc à ne pas utiliser la GNU-GPL. J'ai donc contacté l'auteur de MinML, qui m'a accordé une licence d'utilisation GNU-GPL.</p>
+
+<p>Voici la liste des composants extérieurs réutilisés et parfois modifiés dans le projet:
+<ul>
+	<li>Ekit (Licence LGPL)</li>
+	<li>Apache XML-RPC (Licence Apache)</li>
+	<li>Log4j (Licence Apache)</li>
+</ul>
+
+<p>La licence LGPL (Lesser GPL) permet de réutiliser le code dans un projet sous forme de librairie, même si le produit final n'est pas destiné à être distribué sous licence libre. La licence Apache est une licence compatible avec la GNU-GPL. </p>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+#! /bin/sh
+cd ~/uEasy/
+rm applet/ueasy-applet.jar
+rm server/ueasy-server.jar
+rm stand/ueasy-stand.jar
+rm `find ./bin -name "*.class"`
+rm `find ./src -name "*.class"`
