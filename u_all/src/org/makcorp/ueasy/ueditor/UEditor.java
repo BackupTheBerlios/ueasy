@@ -358,12 +358,21 @@ public class UEditor extends JRootPane implements ActionListener, DocumentListen
 
 			if(command.equals("uopen"))
 			{
+				/*
 				if (documentsSelector == null)
-					documentsSelector = new Selector (server, id, document, Selector.DOCUMENTS);
+					documentsSelector = new Selector (frameHandler, server, id, document, Selector.DOCUMENTS);
 				
+				System.out.println("Selector opened");
+				try {
+					Thread.sleep(2000);
+				}
+				catch (InterruptedException e) { e.printStackTrace(); }
+
 				String document = documentsSelector.getSelection();
 				System.out.println (document);
-				this.open (id, document);
+				//this.open (id, document);
+				*/
+				JOptionPane.showMessageDialog(frameHandler, "Sorry, the open dialog does not work yet :(");
 			}
 			if(command.equals("usave"))
 			{

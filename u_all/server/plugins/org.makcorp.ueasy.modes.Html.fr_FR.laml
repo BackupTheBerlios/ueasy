@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
 	<laml>
 
 	<category name="menu">
@@ -7,10 +8,10 @@
 <tr key="insert" value="Insertion"/>
 <tr key="format" value="Format"/>
 <tr key="alignment" value="Alignement"/>
-<tr key="headings" value="Titres"/>
-<tr key="colors" value="Couleurs"/>
-<tr key="table" value="Tables"/>
-<tr key="form" value="Fomulaires"/>
+<tr key="heading" value="Titre"/>
+<tr key="color" value="Couleur"/>
+<tr key="table" value="Tableau"/>
+<tr key="form" value="Fomulaire"/>
 
 	</category>
 
@@ -22,7 +23,6 @@
 <tr key="toggletoolbar" value="Basculer la barre d'outils"/>
 <tr key="viewsource" value="Basculer code/wysiwyg"/>
 <tr key="exit" value="Quitter"/>
-
 <!-- edition -->
 <tr key="undo" value="Annuler"/>
 <tr key="redo" value="Refaire"/>
@@ -44,7 +44,7 @@
 <tr key="orderedlist" value="Liste numérotée"/>
 <tr key="insertparagraph" value="Paragraphe"/>
 <tr key="insertbreak" value="Saut de ligne"/>
-<tr key="nbsp" value="Espace insécable"/>
+<tr key="insertnbsp" value="Espace insécable"/>
 <!-- format -->
 <tr key="clearformat" value="Supprimer le formattage"/>
 <tr key="selectfont" value="Police"/>
@@ -90,7 +90,20 @@
 <tr key="teal" value="Teal"/>
 <tr key="white" value="Blanc"/>
 <tr key="yellow" value="Blanc"/>
-<!-- todo: continuer -->
+<!-- table -->
+<tr key="inserttable" value="Insérer"/>
+<tr key="inserttablerow" value="Nouvelle ligne"/>
+<tr key="inserttablecell" value="Nouvelle cellule"/>
+<!-- form -->
+<tr key="insertform" value="Nouveau"/>
+<tr key="inserttextfield" value="Ligne de saisie"/>
+<tr key="inserttextarea" value="Zone de texte"/>
+<tr key="insertcheckbox" value="Case à cocher"/>
+<tr key="insertradiobuton" value="Case à choix"/>
+<tr key="insertpassword" value="Mot de passe"/>
+<tr key="insertbutton" value="Bouton"/>
+<tr key="insertbuttonsubmit" value="Bouton Soumettre"/>
+<tr key="insertbuttonreset" value="Bouton Restaurer"/>
 
 	</category>
 

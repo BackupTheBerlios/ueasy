@@ -182,6 +182,7 @@ public class DialogsBuilder extends DefaultHandler
 
 		String key = atts.getValue("key");
 		String label = atts.getValue("label");
+		if (label==null) label = key; // should not happen
 		String menu = atts.getValue("menu");
 		String button = atts.getValue("button");
 		String icon = atts.getValue("icon");

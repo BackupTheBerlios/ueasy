@@ -17,7 +17,7 @@ import java.util.*;
 import org.makcorp.ueasy.uflow.UServer;
 
 // By now it is for documents only, but it is reusable for medias as well
-public class Selector implements TreeSelectionListener, ActionListener {
+public class Selector extends JDialog implements TreeSelectionListener, ActionListener {
 
 	public static final int DOCUMENTS = 0;
 	public static final int MEDIAS = 1;
@@ -40,8 +40,9 @@ public class Selector implements TreeSelectionListener, ActionListener {
 	 * @param type the type of files to be seen, either Selector.DOCUMENTS or Selector.MEDIAS
 	 * medias not supported yet however
 	 */
-	public Selector (UServer server, String id, String document, int type) {
-		//this.server = server;
+	public Selector (Frame parent, UServer server, String id, String document, int type) {
+		super(parent,"titre",true);
+	/*	//this.server = server;
 		System.out.println("Opening Selector");
 		this.id = id;
 		this.document = document;
@@ -87,6 +88,9 @@ public class Selector implements TreeSelectionListener, ActionListener {
 		buttons.add(cancel);
 
 		container.add(buttons,"North");
+	*/	System.out.println("Selector opened");
+		Container container = frame.getContentPane();
+		container.add(new javax.swing.JLabel("hello"));
 	}
 
 
@@ -205,6 +209,8 @@ public class Selector implements TreeSelectionListener, ActionListener {
 		{
 			try {
 				Thread.sleep(100);
+				System.out.print(".");System.out.flush();
+				//frame.repaint();
 			}
 			catch (InterruptedException e) { e.printStackTrace(); }
 		}

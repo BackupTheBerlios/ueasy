@@ -15,6 +15,7 @@
 <li>Traduction for the HTML and Wiki plugins, by now these plugins are only in french
 <li>In case a mode is not found, log it into a special log file so that the admin can see which plugin the users need
 <li>Look for PNG icons for the editor instead of the GIF ones
+<li>Find and fix the bug that prevents the open dialog from showing
 </ul>
 
 <p>Mid-term wishes
@@ -30,13 +31,16 @@
 <li>use Translatrix for the editor-relative dialogs, using a language passed with uFlow's OPEN reply (should be added to the uFlow specification soon), the distributiuon JAR will contain tiny resource files.
 <li>create a Md5SocketServiceServer using java.security.MessageDigest
 <li>Modify ServiceServer and UMainServer this way: the ServiceServer is started by command, batch or bash sript, it reads its properties file looking for Services it has to start, then dynamically loads them.
-<li>Enhance the SocketServiceClient with a web interface, list and state of services, actions on them, log reading
+<li>Bug: removing a CSS style does not seem to work
+<li>Enhance the LocalAmlFactory so that it loads a default language if the requested one is not available
 </ul>
 
 <p>Long-term wishes
 <ul>
 <li>Extend the HTMLEditorKit into an XHTMLEditorKit and use it in the editor
-<li>use a List of UClients and a List of UServers in UMainServer so that it can handle several UClients (for example an internet wysiwyg and a local standalone one) and several UServers (for example a production CMS and a live backup mirror)
+<li>Use a List of UClients and a List of UServers in UMainServer so that it can handle several UClients (for example an internet wysiwyg and a local standalone one) and several UServers (for example a production CMS and a live backup mirror)
+<li>Enhance the SocketServiceClient with a web interface, list and state of services, actions on them, log reading
+<li>Make the uFlow-aware modules 100% uFlow-aware, including the not-yet-implemented base64 icon transmission and some other points
 </ul>
 
 </body>

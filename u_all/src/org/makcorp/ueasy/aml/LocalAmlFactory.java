@@ -133,10 +133,20 @@ public class LocalAmlFactory extends DefaultHandler implements AmlFactory
 		if (name.equals("tr") && !category.equals(""))
 		{
 			// replaces the international attributes of the working file by the associated localized attributes
-			String search = category+"=\""+atts.getValue("key");
-			String replace = category+"=\""+atts.getValue("value");
-			// log.debug (search +" " + replace);
-			workingFile = workingFile.replaceAll(search, replace);
+			String key = atts.getValue("key");
+			String value = atts.getValue("value");
+			String search = category+"=\""+key+"\"";
+			String replace = category+"=\""+value+"\"";
+			
+			if(workingFile.matches(".*"+search+".*"))
+			{
+				workingFile = workingFile.replaceAll(search, replace);
+			}
+			else
+			{
+				// if there is no 'label', the key is supposed to be the label
+				workingFile = workingFile.replaceAll("key=\""+key+"\"", "key=\""+key+"\" label=\""+value+"\"");
+			}
 		}
 	}
 }

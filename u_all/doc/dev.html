@@ -32,6 +32,11 @@ Developper Guide
 		<li>The service server
 		<li>Server-side security
 	</ul>
+	<li>General:
+	<ul>
+		<li>Internationalisation strategy
+		<li>Developpment
+	</ul>
 </ul>
 
 <hr>
@@ -378,6 +383,18 @@ serviceserver=org.makcorp.ueasy.service.SocketServiceServer
 	<li>the "ueasy" user on UNIX
 	<li>the whole system on Windows
 </ul>
+
+<hr>
+<center><b>Internationalisation strategy</b></center>
+<hr>
+
+<p>The wysiwyg editor is a tool for everybody and especially for non-experimented users, people who are not used to computers, it is important that the dialogs are in these people's language, they are no supposed to know office english. 
+
+<p>At first glance, the solution would be to add a "Language" dialog with all available language. But the editor is usually embedded in a CMS, and the user wouldn't understand that, for example, when he changes the language of the editor to spanish, the rest of the CMS stays in deutsch. 
+
+<p>On the other hand, every CMS has a feature to change the language, that is the role of the CMS to know which language must be used. When the user selects a language in the CMS, it should be understood by the editor. The strategy is: when opening a document, the CMS gets the user's language, and transmits it together with the uFlow OPEN reply.
+
+<p>the AmlFactory's job is to produce AML (Action XML, see uFlow specifications) data. The current implementation is LocalAmlFactory, it opens an international "IAML" file and a "LAML" file ("Localizer"). Localisation is done by processing these two files into a single "AML" data. Choosing the LAML file is done by reading in the uFlow OPEN request which language is wanted.
 
 <hr>
 <center><b>Developpment</b></center>
