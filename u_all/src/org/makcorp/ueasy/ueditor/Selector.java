@@ -41,7 +41,8 @@ public class Selector implements TreeSelectionListener, ActionListener {
 	 * medias not supported yet however
 	 */
 	public Selector (UServer server, String id, String document, int type) {
-		//		this.server = server;
+		//this.server = server;
+		System.out.println("Opening Selector");
 		this.id = id;
 		this.document = document;
 		this.type = type;

@@ -2,7 +2,7 @@
 $error_code = 777;
 $error_msg = "Boeing";
 
-if (!copy($argv[5],"/home/nr/uEasy/cms/data-".$argv[2])) {
+if (!copy($argv[5],"../cms/data-".$argv[2])) {
 	$error_code = 100;
 	$error_msg = "error while writing document";
 }

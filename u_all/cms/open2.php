@@ -14,8 +14,9 @@ $modename = "org.makcorp.ueasy.modes.$extensionFirstLetter$extensionLastLetters"
 
 add2log ("Opening ".$argv[2]." as $modename ...");
 
-$css = join("",file("/home/nr/uEasy/cms/test.css"));
+$css = join("",file("../cms/test.css"));
 
+// Early Experimentation for Spip
 // If it is a spip document, get it in the mysql database
 if ("$extensionFirstLetter$extensionLastLetters" == "Spip") {
 	$id_article = substr($argv[2],0,$point);
