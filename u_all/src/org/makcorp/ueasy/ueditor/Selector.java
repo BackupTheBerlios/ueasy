@@ -147,7 +147,7 @@ public class Selector extends JDialog implements TreeSelectionListener, ActionLi
 		label.setForeground(java.awt.Color.red);
 		frame.update(frame.getGraphics());
 		
-		// TODO à supprimer, c'est juste pour le test
+		// TODO to remove, here just for debug purpose
 		try {
 			Thread.sleep(1000);
 			frame.update(frame.getGraphics());
@@ -156,7 +156,7 @@ public class Selector extends JDialog implements TreeSelectionListener, ActionLi
 
 		String dirs = "dir2:voyage,dir3:mer";
 		String documents = "dir1/doc1.sgml:mon planning,dir2/cv.xml:Mon C.V.";
-		String medias = "bullet.png:image/png:Liste,dir1/anim.qt:video/quicktime:Ma vidéo";
+		String medias = "bullet.png:image/png:Liste,dir1/anim.qt:video/quicktime:Ma video";
 
 		// directories
 		StringTokenizer stk = new StringTokenizer (dirs, ",", false);

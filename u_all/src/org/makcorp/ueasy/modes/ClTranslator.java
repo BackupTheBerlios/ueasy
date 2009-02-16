@@ -33,7 +33,7 @@ public class ClTranslator implements Translator
 	}
 	
 	/** Dynamically loads the appropriate Mode */
-	private Mode getMode (String strMode)  throws TranslatorException // todo: utiliser list pour ne pas recharger à tous les coups
+	private Mode getMode (String strMode)  throws TranslatorException // todo: use a list to not reload every time
 	{
 		try {
 			Class mode = Class.forName (strMode);
